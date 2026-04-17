@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultas</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">Consultas de Eventos</h2>
+
+    <!-- BUSCAR POR NOMBRE -->
+    <form th:action="@{/eventos/buscar}" method="get" class="mb-3">
+        <input type="text" name="nombre" placeholder="Buscar por nombre" class="form-control">
+        <button class="btn btn-primary mt-2">Buscar</button>
+    </form>
+
+    <!-- FILTRAR ACTIVOS -->
+    <form th:action="@{/eventos/buscar}" method="get" class="mb-3">
+        <select name="activo" class="form-control">
+            <option value="">Seleccionar estado</option>
+            <option value="true">Activos</option>
+            <option value="false">Inactivos</option>
+        </select>
+        <button class="btn btn-info mt-2">Filtrar</button>
+    </form>
+
+    <!-- TOTAL -->
+    <h5>Total eventos activos: <span th:text="${totalActivos}"></span></h5>
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="evento : ${eventos}">
+                <td th:text="${evento.nombre}"></td>
+                <td th:text="${evento.fecha}"></td>
+                <td th:text="${evento.activo ? 'Activo' : 'Inactivo'}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/}" class="btn btn-secondary">Volver</a>
+
+</div>
+
+</body>
+</html>
